@@ -3,10 +3,10 @@ package com.blusalt.customerservice.model;
 import com.blusalt.customerservice.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,15 +16,18 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "customers",
+@Table(name = "customer",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
-                @UniqueConstraint(columnNames = "email")
+                @UniqueConstraint(columnNames = "email"),
+                @UniqueConstraint(columnNames = "customerId")
         }
 )
 public class Customer extends Base{
 
-    @Size(max = 20)
+    private String customerId;
+
+    @Length(max = 20)
     private String username;
 
     private String firstname;
@@ -41,11 +44,10 @@ public class Customer extends Base{
 
     private String country;
 
-    @Size(max = 50)
+    @Length(max = 50)
     @Email
     private String email;
 
-    @Size(max = 50)
     @JsonIgnore
     private String password;
 
@@ -55,8 +57,13 @@ public class Customer extends Base{
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public Customer(String username, String firstname, String lastname,
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "wallet_id", referencedColumnName = "id")
+    private Wallet wallet;
+
+    public Customer(String customerId, String username, String firstname, String lastname,
                 Gender gender, String email, String password) {
+        this.customerId = customerId;
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;

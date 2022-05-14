@@ -1,6 +1,6 @@
 package com.blusalt.customerservice.util;
 
-import com.activeedge.activeedgeinventoryapp.security.service.UserDetailsImpl;
+import com.blusalt.customerservice.security.service.CustomerDetailsImpl;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +23,7 @@ public class JwtUtils {
 
     public String generateJwtToken(Authentication authentication) {
 
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+        CustomerDetailsImpl userPrincipal = (CustomerDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
@@ -33,7 +33,7 @@ public class JwtUtils {
                 .compact();
     }
 
-    public String getUserEmailFromJwtToken(String token) {
+    public String getCustomerEmailFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 

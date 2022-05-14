@@ -6,6 +6,6 @@ import com.blusalt.customerservice.dto.output.BasicResponseDTO;
 
 public interface CustomerService {
 
-    BasicResponseDTO registerUser(SignupDTO userDetails);
-    BasicResponseDTO authenticateUser(LoginDTO userDetails);
+    BasicResponseDTO registerCustomer(SignupDTO customerDetails);
+    BasicResponseDTO authenticateCustomer(LoginDTO customerDetails);
 }
