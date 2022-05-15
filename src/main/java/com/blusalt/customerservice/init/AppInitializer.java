@@ -1,6 +1,6 @@
 package com.blusalt.customerservice.init;
 
-import com.blusalt.customerservice.dto.input.RoleDTO;
+import com.blusalt.customerservice.dto.request.RoleDTO;
 import com.blusalt.customerservice.enums.RoleType;
 import com.blusalt.customerservice.model.Role;
 import com.blusalt.customerservice.repository.RoleRepository;

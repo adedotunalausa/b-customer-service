@@ -1,7 +1,7 @@
 package com.blusalt.customerservice.security.jwt;
 
 import com.blusalt.customerservice.security.service.CustomerDetailsServiceImpl;
-import com.blusalt.customerservice.util.JwtUtils;
+import com.blusalt.customerservice.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

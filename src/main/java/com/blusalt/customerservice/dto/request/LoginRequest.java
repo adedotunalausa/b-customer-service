@@ -1,4 +1,4 @@
-package com.blusalt.customerservice.dto.input;
+package com.blusalt.customerservice.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class LoginDTO {
+public class LoginRequest {
 
     @NotBlank(message = "email cannot be empty")
     private String email;

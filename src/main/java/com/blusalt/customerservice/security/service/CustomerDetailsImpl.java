@@ -62,14 +62,14 @@ public class CustomerDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static CustomerDetailsImpl build(Customer user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream()
+    public static CustomerDetailsImpl build(Customer customer) {
+        List<GrantedAuthority> authorities = customer.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
         return new CustomerDetailsImpl(
-                user.getEmail(),
-                user.getPassword(),
+                customer.getEmail(),
+                customer.getPassword(),
                 authorities);
     }
 

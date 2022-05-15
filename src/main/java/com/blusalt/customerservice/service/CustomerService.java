@@ -1,11 +1,11 @@
 package com.blusalt.customerservice.service;
 
-import com.blusalt.customerservice.dto.input.LoginDTO;
-import com.blusalt.customerservice.dto.input.SignupDTO;
-import com.blusalt.customerservice.dto.output.BasicResponseDTO;
+import com.blusalt.customerservice.dto.request.LoginRequest;
+import com.blusalt.customerservice.dto.request.SignupRequest;
+import com.blusalt.customerservice.dto.response.BasicResponse;
 
 public interface CustomerService {
 
-    BasicResponseDTO registerCustomer(SignupDTO customerDetails);
-    BasicResponseDTO authenticateCustomer(LoginDTO customerDetails);
+    BasicResponse registerCustomer(SignupRequest customerDetails);
+    BasicResponse authenticateCustomer(LoginRequest customerDetails);
 }

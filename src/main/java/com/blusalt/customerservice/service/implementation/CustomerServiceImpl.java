@@ -1,10 +1,9 @@
 package com.blusalt.customerservice.service.implementation;
 
-import com.blusalt.customerservice.dto.input.LoginDTO;
-import com.blusalt.customerservice.dto.input.SignupDTO;
-import com.blusalt.customerservice.dto.output.BasicResponseDTO;
-import com.blusalt.customerservice.dto.output.JwtResponseDTO;
-import com.blusalt.customerservice.enums.Gender;
+import com.blusalt.customerservice.dto.request.LoginRequest;
+import com.blusalt.customerservice.dto.request.SignupRequest;
+import com.blusalt.customerservice.dto.response.BasicResponse;
+import com.blusalt.customerservice.dto.response.JwtResponse;
 import com.blusalt.customerservice.enums.RoleType;
 import com.blusalt.customerservice.enums.Status;
 import com.blusalt.customerservice.exception.ResourceNotFoundException;
@@ -16,7 +15,7 @@ import com.blusalt.customerservice.repository.RoleRepository;
 import com.blusalt.customerservice.repository.WalletRepository;
 import com.blusalt.customerservice.security.service.CustomerDetailsImpl;
 import com.blusalt.customerservice.service.CustomerService;
-import com.blusalt.customerservice.util.JwtUtils;
+import com.blusalt.customerservice.utils.JwtUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,7 +33,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class CustomerServiceImplementation implements CustomerService {
+public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
 
@@ -49,14 +48,14 @@ public class CustomerServiceImplementation implements CustomerService {
     private final JwtUtils jwtUtils;
 
     @Override
-    public BasicResponseDTO registerCustomer(SignupDTO customerDetails) {
+    public BasicResponse registerCustomer(SignupRequest customerDetails) {
 
         if (emailExists(customerDetails.getEmail())) {
-            return new BasicResponseDTO(Status.FAILED_VALIDATION, "Email is already in use");
+            return new BasicResponse(Status.FAILED_VALIDATION, "Email is already in use");
         }
 
         if (usernameExists(customerDetails.getUsername())) {
-            return new BasicResponseDTO(Status.FAILED_VALIDATION, "Username is already taken");
+            return new BasicResponse(Status.FAILED_VALIDATION, "Username is already taken");
         }
 
         Customer newCustomer = createCustomerObjectFromSignupInfo(customerDetails);
@@ -65,15 +64,15 @@ public class CustomerServiceImplementation implements CustomerService {
         newCustomer.setWallet(newWallet);
         customerRepository.save(newCustomer);
 
-        return new BasicResponseDTO(Status.CREATED, newCustomer);
+        return new BasicResponse(Status.CREATED, newCustomer);
 
     }
 
     @Override
-    public BasicResponseDTO authenticateCustomer(LoginDTO customerDetails) {
+    public BasicResponse authenticateCustomer(LoginRequest customerDetails) {
 
         if (!emailExists(customerDetails.getEmail())) {
-            return new BasicResponseDTO(Status.NOT_FOUND, "Error: Customer not found! Make sure email is correct " +
+            return new BasicResponse(Status.NOT_FOUND, "Error: Customer not found! Make sure email is correct " +
                     "or signup if you don't have an account");
         }
 
@@ -88,17 +87,17 @@ public class CustomerServiceImplementation implements CustomerService {
         List<String> roles = customerInfo.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-        return new BasicResponseDTO(Status.SUCCESS, new JwtResponseDTO(jwt, customerInfo.getUsername(), roles));
+        return new BasicResponse(Status.SUCCESS, new JwtResponse(jwt, customerInfo.getUsername(), roles));
 
     }
 
-    private Customer createCustomerObjectFromSignupInfo(SignupDTO customerDetails) {
+    private Customer createCustomerObjectFromSignupInfo(SignupRequest customerDetails) {
         return new Customer(
                 UUID.randomUUID().toString(),
                 customerDetails.getUsername(),
                 customerDetails.getFirstname(),
                 customerDetails.getLastname(),
-                Gender.getByAlias(customerDetails.getGender()),
+                customerDetails.getGender(),
                 customerDetails.getEmail(),
                 passwordEncoder.encode(customerDetails.getPassword())
         );

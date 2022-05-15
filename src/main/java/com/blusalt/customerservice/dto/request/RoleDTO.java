@@ -1,10 +1,12 @@
-package com.blusalt.customerservice.dto.input;
+package com.blusalt.customerservice.dto.request;
 
 import com.blusalt.customerservice.enums.RoleType;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class RoleDTO {
 

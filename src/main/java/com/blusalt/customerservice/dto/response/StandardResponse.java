@@ -1,4 +1,4 @@
-package com.blusalt.customerservice.dto.output;
+package com.blusalt.customerservice.dto.response;
 
 import com.blusalt.customerservice.enums.Status;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class StandardResponseDTO implements Serializable {
+public class StandardResponse implements Serializable {
 
     @JsonProperty
     protected Status status;

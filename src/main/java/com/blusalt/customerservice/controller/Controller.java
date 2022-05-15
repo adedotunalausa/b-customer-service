@@ -1,6 +1,6 @@
 package com.blusalt.customerservice.controller;
 
-import com.blusalt.customerservice.dto.output.StandardResponseDTO;
+import com.blusalt.customerservice.dto.response.StandardResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ public class Controller {
     @Autowired
     private HttpServletResponse response;
 
-    <T extends StandardResponseDTO> T responseWithUpdatedHttpStatus (T responseDTO) {
+    <T extends StandardResponse> T responseWithUpdatedHttpStatus (T responseDTO) {
         switch (responseDTO.getStatus()) {
             case CREATED:
                 response.setStatus(HttpStatus.CREATED.value());

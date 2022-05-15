@@ -1,4 +1,4 @@
-package com.blusalt.customerservice.util;
+package com.blusalt.customerservice.utils;
 
 import com.blusalt.customerservice.security.service.CustomerDetailsImpl;
 import io.jsonwebtoken.*;

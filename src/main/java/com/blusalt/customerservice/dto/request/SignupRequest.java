@@ -1,4 +1,4 @@
-package com.blusalt.customerservice.dto.input;
+package com.blusalt.customerservice.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
-public class SignupDTO {
+public class SignupRequest {
     @NotBlank(message = "username cannot be empty")
     @Size(min = 3, max = 20)
     private String username;

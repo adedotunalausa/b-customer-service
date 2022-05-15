@@ -11,7 +11,7 @@ import java.util.Map;
 public enum Gender {
 
     MALE("male"),
-    FEMALE("male");
+    FEMALE("female");
 
     private final String alias;
 

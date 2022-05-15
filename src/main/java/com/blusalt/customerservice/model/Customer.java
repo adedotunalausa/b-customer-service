@@ -1,6 +1,5 @@
 package com.blusalt.customerservice.model;
 
-import com.blusalt.customerservice.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
@@ -34,7 +33,7 @@ public class Customer extends Base{
 
     private String lastname;
 
-    private Gender gender;
+    private String gender;
 
     private String address;
 
@@ -62,7 +61,7 @@ public class Customer extends Base{
     private Wallet wallet;
 
     public Customer(String customerId, String username, String firstname, String lastname,
-                Gender gender, String email, String password) {
+                String gender, String email, String password) {
         this.customerId = customerId;
         this.username = username;
         this.firstname = firstname;

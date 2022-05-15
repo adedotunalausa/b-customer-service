@@ -1,4 +1,4 @@
-package com.blusalt.customerservice.dto.output;
+package com.blusalt.customerservice.dto.response;
 
 import com.blusalt.customerservice.enums.Status;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,16 +11,16 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BasicResponseDTO extends StandardResponseDTO {
+public class BasicResponse extends StandardResponse {
 
     @JsonProperty
     private Object responseData;
 
-    public BasicResponseDTO(Status status) {
+    public BasicResponse(Status status) {
         super(status);
     }
 
-    public BasicResponseDTO(Status status, Object responseData) {
+    public BasicResponse(Status status, Object responseData) {
         super(status);
         this.responseData = responseData;
     }
