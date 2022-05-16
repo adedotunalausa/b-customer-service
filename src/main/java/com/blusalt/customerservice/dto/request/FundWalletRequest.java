@@ -7,8 +7,15 @@ import lombok.Setter;
 @Setter
 public class FundWalletRequest {
 
+
     private String customerId;
 
+    private String walletId;
+
     private Double amount;
+
+    private Double currentWalletBalance;
+
+    private Double newWalletBalance;
 
 }
