@@ -13,7 +13,7 @@ public class Controller {
     @Autowired
     private HttpServletResponse response;
 
-    <T extends StandardResponse> T responseWithUpdatedHttpStatus (T responseDTO) {
+    <T extends StandardResponse> T responseWithUpdatedHttpStatus(T responseDTO) {
         switch (responseDTO.getStatus()) {
             case CREATED:
                 response.setStatus(HttpStatus.CREATED.value());
@@ -26,6 +26,8 @@ public class Controller {
                 break;
             case FORBIDDEN:
                 response.setStatus(HttpStatus.FORBIDDEN.value());
+            case BAD_REQUEST:
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
             default:
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
         }

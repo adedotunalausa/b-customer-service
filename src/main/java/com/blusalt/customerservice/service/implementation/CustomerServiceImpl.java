@@ -122,7 +122,7 @@ public class CustomerServiceImpl implements CustomerService {
     private Wallet createWalletForCustomer(Customer newCustomer) {
         Wallet wallet = new Wallet(
                 UUID.randomUUID().toString(),
-                0.0,
+                "0.0",
                 newCustomer.getCustomerId()
         );
         return walletRepository.save(wallet);

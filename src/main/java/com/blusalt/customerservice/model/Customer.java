@@ -22,7 +22,7 @@ import java.util.Set;
                 @UniqueConstraint(columnNames = "customerId")
         }
 )
-public class Customer extends Base{
+public class Customer extends Base {
 
     private String customerId;
 
@@ -51,7 +51,7 @@ public class Customer extends Base{
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "customer_roles",
+    @JoinTable(name = "customer_roles",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
@@ -61,7 +61,7 @@ public class Customer extends Base{
     private Wallet wallet;
 
     public Customer(String customerId, String username, String firstname, String lastname,
-                String gender, String email, String password) {
+                    String gender, String email, String password) {
         this.customerId = customerId;
         this.username = username;
         this.firstname = firstname;

@@ -13,7 +13,7 @@ public class BillingFeignClientConfig {
     }
 
     @Bean
-    public ErrorDecoder errorDecoder () {
+    public ErrorDecoder errorDecoder() {
         return new FeignErrorDecoder();
     }
 

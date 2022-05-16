@@ -16,13 +16,13 @@ import javax.persistence.UniqueConstraint;
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "walletId"),
                 @UniqueConstraint(columnNames = "customerId")
-    }
+        }
 )
-public class Wallet extends Base{
+public class Wallet extends Base {
 
     private String walletId;
 
-    private Double balance;
+    private String balance;
 
     private String customerId;
 

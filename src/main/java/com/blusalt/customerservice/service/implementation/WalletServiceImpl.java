@@ -3,14 +3,17 @@ package com.blusalt.customerservice.service.implementation;
 import com.blusalt.customerservice.client.BillingFeignClient;
 import com.blusalt.customerservice.dto.request.FundWalletRequest;
 import com.blusalt.customerservice.dto.response.BasicResponse;
+import com.blusalt.customerservice.enums.Status;
 import com.blusalt.customerservice.exception.ResourceNotFoundException;
 import com.blusalt.customerservice.model.Customer;
 import com.blusalt.customerservice.model.Wallet;
 import com.blusalt.customerservice.repository.CustomerRepository;
 import com.blusalt.customerservice.service.WalletService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class WalletServiceImpl implements WalletService {
@@ -20,9 +23,14 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public BasicResponse fundWallet(FundWalletRequest fundWalletRequest) {
-        Customer customer = getCustomer(fundWalletRequest.getCustomerId());
-        FundWalletRequest updatedFundWalletRequest = updateFundWalletRequest(fundWalletRequest, customer);
-        return billingFeignClient.fundWallet(updatedFundWalletRequest);
+        try {
+            Customer customer = getCustomer(fundWalletRequest.getCustomerId());
+            FundWalletRequest updatedFundWalletRequest = updateFundWalletRequest(fundWalletRequest, customer);
+            return billingFeignClient.fundWallet(updatedFundWalletRequest);
+        } catch (Exception exception) {
+            log.error("There was an error while funding wallet: {}", exception.getMessage());
+            return new BasicResponse(Status.BAD_REQUEST, exception.getMessage());
+        }
     }
 
     private Customer getCustomer(String customerId) {

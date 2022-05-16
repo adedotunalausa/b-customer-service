@@ -12,7 +12,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @RequestMapping("/api/v1/wallet")
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class WalletController extends Controller{
+public class WalletController extends Controller {
 
     private final WalletService walletService;
 
