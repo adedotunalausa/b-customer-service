@@ -56,7 +56,7 @@ public class Customer extends Base {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "wallet_id", referencedColumnName = "id")
     private Wallet wallet;
 
