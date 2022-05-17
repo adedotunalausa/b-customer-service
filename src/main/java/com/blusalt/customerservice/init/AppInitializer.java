@@ -54,30 +54,30 @@ public class AppInitializer implements ApplicationRunner {
 
     private void seedCustomer() {
         String username = "akanke";
+        String customerId = "35647-898475-09405";
         if (!customerRepository.existsByUsername(username)) {
-            Customer customer = new Customer(
-                    UUID.randomUUID().toString(),
-                    username,
-                    "Oluwadamilola",
-                    "Alausa",
-                    "female",
-                    "akanke@gmail.com",
-                    passwordEncoder.encode("123456")
-            );
-
             Set<Role> roles = new HashSet<>();
             Role customerRole = roleRepository.findByName(RoleType.USER)
                     .orElseThrow(() -> new ResourceNotFoundException("Error: Role not found."));
             roles.add(customerRole);
-            customer.setRoles(roles);
 
             Wallet wallet = new Wallet(
                     UUID.randomUUID().toString(),
                     "1267.0",
-                    customer.getCustomerId()
+                    customerId
             );
             Wallet newWallet = walletRepository.save(wallet);
-            customer.setWallet(newWallet);
+
+            Customer customer = new Customer();
+            customer.setCustomerId(customerId);
+            customer.setUsername(username);
+            customer.setFirstname("Oluwadamilola");
+            customer.setLastname("Alausa");
+            customer.setGender("female");
+            customer.setEmail("akanke@gmail.com");
+            customer.setPassword(passwordEncoder.encode("123456"));
+            customer.setRoles(roles);
+            customer.setWalletId(newWallet.getWalletId());
 
             customerRepository.save(customer);
         }

@@ -61,7 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer newCustomer = createCustomerObjectFromSignupInfo(customerDetails);
         setRolesForNewCustomer(newCustomer);
         Wallet newWallet = createWalletForCustomer(newCustomer);
-        newCustomer.setWallet(newWallet);
+        newCustomer.setWalletId(newWallet.getWalletId());
         customerRepository.save(newCustomer);
 
         return new BasicResponse(Status.CREATED, newCustomer);

@@ -52,7 +52,7 @@ public class WalletServiceImpl implements WalletService {
                 throw new ValidationException("Secret key is not present or not correct!");
             }
             Customer customer = getCustomer(fundWalletResponse.getCustomerId());
-            updateCustomerWallet(customer.getCustomerId(), fundWalletResponse.getNewWalletBalance());
+            updateCustomerWallet(customer.getWalletId(), fundWalletResponse.getNewWalletBalance());
             return new BasicResponse(Status.SUCCESS);
         } catch (Exception exception) {
             log.error("There was an error while updating customer wallet: {}", exception.getMessage());
@@ -66,20 +66,20 @@ public class WalletServiceImpl implements WalletService {
         });
     }
 
-    private Wallet getWallet(String customerId) {
-        return walletRepository.findByCustomerId(customerId).orElseThrow(() -> {
+    private Wallet getWalletByWalletId(String walletId) {
+        return walletRepository.findByWalletId(walletId).orElseThrow(() -> {
             throw new ResourceNotFoundException("Wallet not found!");
         });
     }
 
     private void updateCustomerWallet(String customerId, String newWalletBalance) {
-        Wallet wallet = getWallet(customerId);
+        Wallet wallet = getWalletByWalletId(customerId);
         wallet.setBalance(newWalletBalance);
         walletRepository.save(wallet);
     }
 
     private FundWalletRequest updateFundWalletRequest(FundWalletRequest fundWalletRequest, Customer customer) {
-        Wallet wallet = customer.getWallet();
+        Wallet wallet = getWalletByWalletId(customer.getWalletId());
         fundWalletRequest.setWalletId(wallet.getWalletId());
         fundWalletRequest.setCurrentWalletBalance(wallet.getBalance());
         return fundWalletRequest;
